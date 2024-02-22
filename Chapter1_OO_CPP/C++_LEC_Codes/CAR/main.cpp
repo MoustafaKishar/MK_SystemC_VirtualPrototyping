@@ -34,6 +34,7 @@ class car
 };  // ALWAYS NEED SEMI-COLON at the end, don't forget ! MK_DF
 
 // Usually classes are in header files and functions are implemented in the c files.
+// className::FncName
 void car::drive()       // Function implemented outside the class, need className::FncName
 {
     if(fuel > 10)
@@ -55,9 +56,9 @@ int main()
     std::cout << KL_TU_1.getFuel() << std::endl;
 
 
-    car * hom_mj_687 = new car("red","toyota");     // Creating a pointer need to use keyword new
-    hom_mj_687->refuel(100);        // For pointers it is not a dot but arrow "->"
-    hom_mj_687->color = "green";    // Everything now is public so we can access attributes directly, but this is not correct and should always use methods.
+    car * hom_mj_687 = new car("red","toyota");     // Creating a pointer, need to use keyword new
+    hom_mj_687->refuel(100);                        // For pointers it is not a dot but arrow "->"
+    hom_mj_687->color = "green";                    // Everything now is public so we can access attributes directly, but this is not correct and should always use methods.
     
     delete hom_mj_687;      // Calls the destructor
 }
