@@ -20,6 +20,14 @@ set(SYSTEMC_AMS_INCLUDE $ENV{SYSTEMC_AMS_HOME}/include)
 #set(SYSTEMC_INCLUDE /opt/systemc/include) # Uncomment for macOS
 #set(SYSTEMC_AMS_INCLUDE /opt/systemc-ams/include) # Uncomment for macOS
 
+
+# Verm
+#add_subdirectory(0_verm/rs_latch/delta_delay)
+#add_subdirectory(0_verm/register)
+
+# Templates
+#add_subdirectory(1_templates)
+
 # Exercises
 #add_subdirectory(a_mk_final_exercises/ex_2)
 #add_subdirectory(a_mk_final_exercises/ex_2/task4)
@@ -27,6 +35,8 @@ set(SYSTEMC_AMS_INCLUDE $ENV{SYSTEMC_AMS_HOME}/include)
 #add_subdirectory(a_mk_final_exercises/ex_3/part3)
 #add_subdirectory(a_mk_final_exercises/ex_4)
 #add_subdirectory(a_mk_final_exercises/ex_5)
+add_subdirectory(a_mk_final_exercises/ex_6)
+#add_subdirectory(a_mk_final_exercises/ex_8)
 
 # L2: Codes
 #add_subdirectory(L2_SC_basics/delta_delay)
@@ -42,6 +52,11 @@ set(SYSTEMC_AMS_INCLUDE $ENV{SYSTEMC_AMS_HOME}/include)
 #add_subdirectory(L3_SC_advanced/custom_fifo)
 #add_subdirectory(L3_SC_advanced/custom_signal)
 #add_subdirectory(L3_SC_advanced/kpn_example)
+#add_subdirectory(L3_SC_advanced/fifo_example)
+#add_subdirectory(L3_SC_advanced/mutex_example)
+
+# L4: Codes
+add_subdirectory(L4_TLM_basics/tlm_quantum_keeper)
 
 
 
