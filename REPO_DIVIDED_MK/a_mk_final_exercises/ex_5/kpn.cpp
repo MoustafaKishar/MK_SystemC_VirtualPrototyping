@@ -16,7 +16,7 @@ void kpn::kpn_add(){
 void kpn::kpn_split(){
     int i = 0;
     while (i < 10) {
-        unsigned int bt;
+        unsigned int bt;            // has to be unsigned int and not signal as signal's value is only updated in the update phase, so after control has been passed to the kernel
         bt = b.read();
         a.write(bt);
         d.write(bt);

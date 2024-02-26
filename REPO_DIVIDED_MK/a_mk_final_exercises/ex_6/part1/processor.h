@@ -125,6 +125,31 @@ void processor::processTrace()
 		// Available GCC has support to regular expressions (version >= 4.9)
 		std::regex reW("(\\d+)\\s*:\\s*write\\s+0x([\\d\\w]+)\\s+0x([\\d\\w]+)");
 		std::regex reR("(\\d+)\\s*:\\s*read\\s+0x([\\d\\w]+)");
+		/*
+		1. std::regex reW("(\\d+)\\s*:\\s*write\\s+0x([\\d\\w]+)\\s+0x([\\d\\w]+)");
+			This regex is designed to match lines that represent a write operation. Here's a breakdown of the pattern:
+			(\\d+): Matches one or more digits (\d represents a digit, + means one or more occurrences).
+			\\s*: Matches zero or more whitespace characters (\s represents whitespace, * means zero or more occurrences).
+			:: Matches a colon character.
+			\\s*: Again, matches zero or more whitespace characters.
+			write: Matches the literal string "write".
+			\\s+: Matches one or more whitespace characters.
+			0x: Matches the literal characters "0x".
+			([\\d\\w]+): Matches one or more digits or word characters (\d represents a digit, \w represents a word character, + means one or more occurrences). This is capturing a hexadecimal address.
+			\\s+: Matches one or more whitespace characters.
+			0x: Matches the literal characters "0x".
+			([\\d\\w]+): Similar to the previous group, matches one or more digits or word characters. This is capturing a hexadecimal data value.
+		2. std::regex reR("(\\d+)\\s*:\\s*read\\s+0x([\\d\\w]+)");
+			This regex is designed to match lines that represent a read operation. Here's a breakdown of the pattern:
+			(\\d+): Matches one or more digits.
+			\\s*: Matches zero or more whitespace characters.
+			:: Matches a colon character.
+			\\s*: Matches zero or more whitespace characters.
+			read: Matches the literal string "read".
+			\\s+: Matches one or more whitespace characters.
+			0x: Matches the literal characters "0x".
+			([\\d\\w]+): Matches one or more digits or word characters. This is capturing a hexadecimal address.
+		*/
 		std::smatch matchW;
 		std::smatch matchR;
 

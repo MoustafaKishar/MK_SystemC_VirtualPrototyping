@@ -1,14 +1,19 @@
 Points Covered in each Exercise:
 
-Exercise 1:
-- 
-- 
-- 
 Exercise 2:
-- 
-- 
-- 
-
+- Implementation of a nand gate module
+- Using nand gates to create an xor (Hierarchical Binding)
+- Understanding given stimulus and monitor files
+- Debugging using GTKWave
+- Adding sc_clock
+Exercise 3:
+- State machine implementation using switch cases on Regex Expression.
+Exercise 4:
+- Petri Net implementation using custom interfaces, templated ports, multiports and channels.
+Exercise 5:
+- Kahn Process Network implementation using sc_fifo<T>
+Exercise 6:
+- TLM Loosely Timed: Single Initiator/ Target, Multiple Initiator/ Target, Temporal Decoupling
 
 Hard Points Covered in Lectures:
 

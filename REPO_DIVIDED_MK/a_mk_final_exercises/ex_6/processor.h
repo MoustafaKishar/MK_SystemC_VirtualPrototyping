@@ -58,7 +58,7 @@ processor::processor(sc_module_name)
 	iSocket.bind(*this);
 
 	// MK_ADDED two below
-	quantumKeeper.set_global_quantum(sc_time(100000,SC_NS)); // STATIC!
+	quantumKeeper.set_global_quantum(sc_time(100,SC_NS)); // STATIC!
     quantumKeeper.reset();
 }
 
@@ -207,9 +207,9 @@ void processor::processTrace()
 
 void processor::processRandom()
 {
-    //wait(SC_ZERO_TIME);  MK_REMOVED
+    //wait(SC_ZERO_TIME);  //MK_REMOVED		// MK_GPT:  This line suspends the execution of the process until the time advances to the current simulation time (i.e., it waits for zero time).
 
-    tlm::tlm_generic_payload trans;
+    tlm::tlm_generic_payload trans;			//MK_GPT: Declares a TLM generic payload object named trans, which is used to represent transactions in the TLM model.
 
     uint64_t cycles;
     uint64_t address;
@@ -218,6 +218,12 @@ void processor::processRandom()
     std::default_random_engine randGenerator;
     std::uniform_int_distribution<uint64_t> distrCycle(0, 99);
     std::uniform_int_distribution<uint64_t> distrAddr(0, 1023);
+	/*
+	MK_GPT:
+	std::default_random_engine randGenerator;: Creates a random number engine named randGenerator.
+	std::uniform_int_distribution<uint64_t> distrCycle(0, 99);: Defines a uniform distribution named distrCycle for random numbers in the range [0, 99].
+	std::uniform_int_distribution<uint64_t> distrAddr(0, 1023);: Defines a uniform distribution named distrAddr for random numbers in the range [0, 1023].
+	*/
 
     data[0] = 0;
     data[1] = 0;
@@ -228,14 +234,19 @@ void processor::processRandom()
     trans.set_command(tlm::TLM_WRITE_COMMAND);
     trans.set_data_ptr(data);
 
+	/*
+	MK_GPT:
+	Enters a loop to generate and process transactions. The loop will iterate 100,000,000 times.
+	Generates random values for cycles and address using the random number distributions.
+	*/
     //for (uint64_t transId = 0; transId < 100000000; transId++)
+	//sc_time delay = quantumKeeper.get_local_time();
 	for (uint64_t transId = 0; transId < 10000; transId++)
     {
         cycles = distrCycle(randGenerator);
         address = distrAddr(randGenerator);
 
         sc_time delay;
-
 		delay = quantumKeeper.get_local_time();
 		cout << this->name() << ": B_TRANSPORT @" << sc_time_stamp()
                  << " Local Time " << quantumKeeper.get_local_time() << endl;
@@ -247,7 +258,13 @@ void processor::processRandom()
         //{
         //    delay = quantumKeeper.get_local_time(); //MK_CHANGED from: delay = SC_ZERO_TIME;
         //}
+		//sc_time delay = cycles * cycleTime;			//NEWW MK_GPT: Calculates the delay for the transaction based on the number of cycles and the cycle time.
 
+		/*
+		MK_GPT:
+		Sets the address of the transaction.
+		Calls the blocking transport method b_transport on the initiator socket iSocket to send the transaction to the target with the specified delay.
+		*/
         trans.set_address(address);
         iSocket->b_transport(trans, delay);
 		
@@ -255,7 +272,7 @@ void processor::processRandom()
 		quantumKeeper.set(delay); // Anotate the time of the target
         quantumKeeper.inc(sc_time(10,SC_NS)); // Consume computation time
 
-        // MK_REMOVED : wait(delay);
+        // MK_REMOVED : wait(delay);			// MK_GPT: Waits for the delay to simulate the processing time of the transaction before proceeding to the next iteration of the loop.
 
 		//MK_ADDED below
 		if(quantumKeeper.need_sync())
